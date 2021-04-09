@@ -2,20 +2,21 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 type Props = {
+  commandAdded: (cmd: string) => void;
 };
 
 type FormData = {
   command: string;
 };
 
-const Input: React.FC<Props> = (_ : Props) => {
+const Input: React.FC<Props> = ({ commandAdded } : Props) => {
   const {
     register,
     handleSubmit,
     reset,
   } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    commandAdded(data.command);
     reset();
   };
 
