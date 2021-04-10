@@ -30,6 +30,22 @@
   width: 90%;
 }
 
+#main-view {
+  height: 90%;
+}
+
+#mathstack-wrapper {
+  width: 50%;
+  float: left;
+}
+
+#mathml-textarea {
+  background-color: #eee;
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+
 .App-link {
   color: #61dafb;
 }

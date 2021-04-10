@@ -5,12 +5,15 @@ import './App.css';
 import * as M from './Machine';
 
 const elemArityMap: Record<string, number> = {
+  mfrac: 2,
   mroot: 2,
   msqrt: 1,
+  msup: 2,
 } as const;
 
 const operators = [
-  '+', '-', ',', '[', ']', '(', ')', '{', '}'
+  '+', '-', ',', '[', ']', '(', ')', '{', '}',
+  '=', '>', '<',
 ];
 
 const interpret = (stack: M.Stack, cmd: string): M.Stack => {
@@ -43,15 +46,27 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
 
 const App = () => {
   const [stack, setStack] = React.useState<JSX.Element[]>([]);
+  const [mathmlText, setMathmlText] = React.useState<string>("");
 
   const commandAdd = (cmd: string) => {
     const newstk = interpret(stack, cmd);
     setStack(newstk);
   };
 
+  const showMathmlText = (text: string) => {
+    setMathmlText(text);
+  };
+
   return (
     <div className="App">
-      <MathStack stack={stack}/>
+      <div id="main-view">
+        <div id="mathstack-wrapper">
+          <MathStack stack={stack} showText={showMathmlText}/>
+        </div>
+        <div id="mathml-textarea">
+          {mathmlText}
+        </div>
+      </div>
       <div id="command-input-wrapper">
         <Input commandAdded={commandAdd}/>
       </div>
