@@ -21,7 +21,7 @@ export const popElement = (stack: Stack): Stack => {
 export const createElement = (stack: Stack, tag: string, npop: number): Stack => {
   const bottom = stack.slice(npop);
   const top = stack.slice(0, npop);
-  return pushElement(bottom, React.createElement(tag, {}, top));
+  return pushElement(bottom, React.createElement(tag, {}, top.slice().reverse()));
 };
 
 export const pushMn = (stack: Stack, numeral: string): Stack => {
