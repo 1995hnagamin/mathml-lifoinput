@@ -9,6 +9,10 @@ const elemArityMap: Record<string, number> = {
   msqrt: 1,
 } as const;
 
+const operators = [
+  '+', '-', ',', '[', ']', '(', ')', '{', '}'
+];
+
 const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
     return M.pushMn(stack, cmd);
@@ -30,8 +34,8 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd in elemArityMap) {
     return M.createElement(stack, cmd, elemArityMap[cmd]);
   }
-  if (cmd === "+") {
-    return M.pushMo(stack, '+');
+  if (operators.includes(cmd)) {
+    return M.pushMo(stack, cmd);
   }
   console.log(`error: unknown command "${cmd}"`);
   return stack;
