@@ -38,3 +38,7 @@ export const pushMn = (stack: Stack, numeral: string): Stack => {
 export const pushMi = (stack: Stack, numeral: string): Stack => {
   return pushElement(stack, React.createElement('mi', {}, numeral));
 }
+
+export const pushMo = (stack: Stack, operator: string): Stack => {
+  return pushElement(stack, React.createElement('mo', {}, operator));
+}

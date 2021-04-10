@@ -22,6 +22,9 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
     const arity: number = +(found!.groups!.arity);
     return M.createElement(stack, 'mrow', arity);
   }
+  if (cmd === "+") {
+    return M.pushMo(stack, '+');
+  }
   console.log(`error: unknown command "${cmd}"`);
   return stack;
 }
