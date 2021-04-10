@@ -4,6 +4,11 @@ import MathStack from './components/MathStack';
 import './App.css';
 import * as M from './Machine';
 
+const elemArityMap: Record<string, number> = {
+  mroot: 2,
+  msqrt: 1,
+} as const;
+
 const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
     return M.pushMn(stack, cmd);
@@ -22,8 +27,8 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
     const arity: number = +(found!.groups!.arity);
     return M.createElement(stack, 'mrow', arity);
   }
-  if (cmd === "msqrt") {
-    return M.createElement(stack, 'msqrt', 1);
+  if (cmd in elemArityMap) {
+    return M.createElement(stack, cmd, elemArityMap[cmd]);
   }
   if (cmd === "+") {
     return M.pushMo(stack, '+');
