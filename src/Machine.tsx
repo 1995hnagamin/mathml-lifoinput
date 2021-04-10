@@ -23,3 +23,11 @@ export const createElement = (stack: Stack, tag: string, npop: number): Stack =>
   const top = stack.slice(0, npop);
   return pushElement(bottom, React.createElement(tag, {}, top));
 };
+
+export const pushMn = (stack: Stack, numeral: string): Stack => {
+  return pushElement(stack, React.createElement('mn', {}, numeral));
+}
+
+export const pushMi = (stack: Stack, numeral: string): Stack => {
+  return pushElement(stack, React.createElement('mi', {}, numeral));
+}
