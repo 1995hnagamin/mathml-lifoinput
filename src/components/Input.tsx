@@ -21,9 +21,9 @@ const Input: React.FC<Props> = ({ commandAdded } : Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="command" ref={register}/>
-      <input type="submit" />
+    <form id="command-input" onSubmit={handleSubmit(onSubmit)}>
+      <input id="command-input-text" name="command" ref={register}/>
+      <input id="command-input-button" type="submit" />
     </form>
   );
 };

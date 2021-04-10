@@ -31,8 +31,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <Input commandAdded={commandAdd}/>
       <MathStack stack={stack}/>
+      <div id="command-input-wrapper">
+        <Input commandAdded={commandAdd}/>
+      </div>
     </div>
   );
 };
