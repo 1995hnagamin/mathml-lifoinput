@@ -12,6 +12,11 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
     const found = cmd.match(/^mi:(?<name>[a-zA-Z]+)$/);
     return M.pushMi(stack, found!.groups!.name);
   }
+  if (cmd.match(/^@[a-z]+="[^"]*"$/)) {
+    const found = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
+    console.log(found!.groups!);
+    return M.addAttribute(stack, found!.groups!.name, found!.groups!.value);
+  }
   if (cmd.match(/^mrow\/[0-9]+$/)) {
     const found = cmd.match(/^mrow\/(?<arity>[0-9]+)$/);
     const arity: number = +(found!.groups!.arity);

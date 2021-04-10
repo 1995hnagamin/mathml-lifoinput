@@ -24,6 +24,13 @@ export const createElement = (stack: Stack, tag: string, npop: number): Stack =>
   return pushElement(bottom, React.createElement(tag, {}, top.slice().reverse()));
 };
 
+export const addAttribute = (stack: Stack, name: string, value: string): Stack => {
+  const bottom = popElement(stack);
+  const top = stack[0];
+  console.log(name, value);
+  return pushElement(bottom, React.cloneElement(top, {[name]: value}));
+}
+
 export const pushMn = (stack: Stack, numeral: string): Stack => {
   return pushElement(stack, React.createElement('mn', {}, numeral));
 }
