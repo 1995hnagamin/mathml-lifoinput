@@ -12,10 +12,10 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
     const found = cmd.match(/^mi:(?<name>[a-zA-Z]+)$/);
     return M.pushMi(stack, found!.groups!.name);
   }
-  if (cmd.match(/^mfenced\/[0-9]+$/)) {
-    const found = cmd.match(/^mfenced\/(?<arity>[0-9]+)$/);
+  if (cmd.match(/^mrow\/[0-9]+$/)) {
+    const found = cmd.match(/^mrow\/(?<arity>[0-9]+)$/);
     const arity: number = +(found!.groups!.arity);
-    return M.createElement(stack, 'mfenced', arity);
+    return M.createElement(stack, 'mrow', arity);
   }
   console.log(`error: unknown command "${cmd}"`);
   return stack;
