@@ -45,6 +45,9 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (operators.includes(cmd)) {
     return M.pushMo(stack, cmd);
   }
+  if (cmd === '\\pop') {
+    return M.popElement(stack);
+  }
   console.log(`error: unknown command "${cmd}"`);
   return stack;
 }
