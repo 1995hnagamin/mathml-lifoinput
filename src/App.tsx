@@ -3,6 +3,7 @@ import Input from './components/Input';
 import MathStack from './components/MathStack';
 import './App.css';
 import * as M from './Machine';
+import XMLViewer from 'react-xml-viewer';
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -64,7 +65,7 @@ const App = () => {
           <MathStack stack={stack} showText={showMathmlText}/>
         </div>
         <div id="mathml-textarea">
-          {mathmlText}
+          <XMLViewer xml={mathmlText} />
         </div>
       </div>
       <div id="command-input-wrapper">
