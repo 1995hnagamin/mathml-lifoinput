@@ -26,7 +26,7 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd.match(/^[a-zA-Z]$/)) {
     return M.pushMi(stack, cmd);
   }
-  const MiCom = cmd.match(/^mi:"(?<variable>[a-zA-Z]+)"$/);
+  const MiCom = cmd.match(/^mi:"(?<variable>[^"]+)"$/);
   if (MiCom) {
     return M.pushMi(stack, MiCom.groups!.variable);
   }
