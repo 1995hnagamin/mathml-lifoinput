@@ -65,7 +65,9 @@ const App = () => {
   const commandAdd = (cmd: string) => {
     const newstk = interpret(stack, cmd);
     setStack(newstk);
-    if (selected !== null) {
+    if (newstk.length === 0) {
+      setSelected(null);
+    } else if (selected !== null) {
       setSelected(Math.min(selected, newstk.length-1));
     }
   };
