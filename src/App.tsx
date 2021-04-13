@@ -88,6 +88,9 @@ const App = () => {
                 ? ReactDOMServer.renderToStaticMarkup(stack.slice().reverse()[selected])
                 : ""
             }
+            invalidXml={
+              ""
+            }
           />
         </div>
       </div>
