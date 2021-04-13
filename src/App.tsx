@@ -48,6 +48,11 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd === '\\pop') {
     return M.popElement(stack);
   }
+  const Packit = cmd.match(/^\\packit:(?<count>[0-9]+)$/);
+  if (Packit) {
+    const count: number = +(Packit.groups!.count);
+    return M.packInvisibleTimes(stack, count);
+  }
   console.log(`error: unknown command "${cmd}"`);
   return stack;
 }

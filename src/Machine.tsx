@@ -42,3 +42,17 @@ export const pushMi = (stack: Stack, numeral: string): Stack => {
 export const pushMo = (stack: Stack, operator: string): Stack => {
   return pushElement(stack, React.createElement('mo', {}, operator));
 }
+
+export const packInvisibleTimes = (stack: Stack, nchildren: number): Stack => {
+  const bottom = stack.slice(nchildren);
+  const top = stack.slice(0, nchildren).reverse();
+  const children = top.reduce<Element[]>(
+    (chd, elem, i) => {
+      return i > 0
+        ? chd.concat([React.createElement('mo', {}, '&InvisibleTimes;'), elem])
+        : [elem]
+    },
+    []);
+
+  return pushElement(bottom, React.createElement('mrow', {}, children));
+}
