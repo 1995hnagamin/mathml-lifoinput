@@ -10,6 +10,7 @@ const elemArityMap: Record<string, number> = {
   mroot: 2,
   msqrt: 1,
   msup: 2,
+  mstyle: 1,
 } as const;
 
 const operators = [
