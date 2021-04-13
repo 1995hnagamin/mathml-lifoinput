@@ -87,7 +87,7 @@ const App = () => {
           <XMLViewer
             xml={
               selected !== null
-                ? ReactDOMServer.renderToStaticMarkup(stack.slice().reverse()[selected])
+                ? ReactDOMServer.renderToStaticMarkup(stack[selected])
                 : ""
             }
             invalidXml={

@@ -10,7 +10,7 @@ const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => 
   return (
     <ul>
       {
-        stack.slice().reverse().map((elem, i) =>
+        stack.map((elem, i) =>
           <li
             key={i}
             className={i === selected ? 'stack-elem-selected' : 'stack-elem-not-selected'}
