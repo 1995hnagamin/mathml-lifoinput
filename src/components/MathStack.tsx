@@ -7,15 +7,20 @@ type Props = {
 };
 
 const MathStack: React.FC<Props> = ({ stack, showText }: Props) => {
+  const [selected, setSelected] = React.useState<number | null>(null);
+
   return (
     <ul>
       {
         stack.slice().reverse().map((elem, i) =>
           <li
             key={i}
+            className={i === selected ? 'stack-elem-selected' : 'stack-elem-not-selected'}
             onMouseOver={
-              () =>
-                showText(ReactDOMServer.renderToStaticMarkup(elem))
+              () => {
+                setSelected(i);
+                showText(ReactDOMServer.renderToStaticMarkup(elem));
+              }
             }
           >
             {React.createElement('math', { }, elem)}

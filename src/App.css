@@ -46,6 +46,14 @@
   float: right;
 }
 
+.stack-elem-selected {
+  background-color: #eee;
+}
+
+.stack-elem-not-selected {
+  background-color: white;
+}
+
 .App-link {
   color: #61dafb;
 }
