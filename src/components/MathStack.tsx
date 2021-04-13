@@ -23,7 +23,12 @@ const MathStack: React.FC<Props> = ({ stack, showText }: Props) => {
               }
             }
           >
-            {React.createElement('math', { }, elem)}
+            {
+              React.createElement(
+                'math',
+                { xmlns: "http://www.w3.org/1998/Math/MathML" },
+                elem)
+            }
           </li>
         )
       }
