@@ -15,8 +15,7 @@
 }
 
 #command-input-wrapper {
-  position: fixed;
-  width: 100%;
+  position: sticky;
   bottom: 8px;
 }
 
@@ -31,12 +30,17 @@
 }
 
 #main-view {
-  height: 90%;
+  height: 100%;
+}
+
+#input-area {
+  width: 50%;
+  height: 100%;
+  float: left;
 }
 
 #mathstack-wrapper {
-  width: 50%;
-  float: left;
+  height: 90%;
 }
 
 #mathml-textarea {

@@ -73,8 +73,13 @@ const App = () => {
   return (
     <div className="App">
       <div id="main-view">
-        <div id="mathstack-wrapper">
-          <MathStack stack={stack} selected={selected} setSelected={setSelected}/>
+        <div id="input-area">
+          <div id="mathstack-wrapper">
+            <MathStack stack={stack} selected={selected} setSelected={setSelected}/>
+          </div>
+          <div id="command-input-wrapper">
+            <Input commandAdded={commandAdd}/>
+          </div>
         </div>
         <div id="mathml-textarea">
           <XMLViewer
@@ -85,9 +90,6 @@ const App = () => {
             }
           />
         </div>
-      </div>
-      <div id="command-input-wrapper">
-        <Input commandAdded={commandAdd}/>
       </div>
     </div>
   );
