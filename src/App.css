@@ -15,7 +15,8 @@
 }
 
 #command-input-wrapper {
-  position: sticky;
+  position: fixed;
+  width: 50%;
   bottom: 8px;
 }
 
@@ -41,6 +42,7 @@
 
 #mathstack-wrapper {
   height: 90%;
+  overflow: auto;
 }
 
 #mathml-textarea {
@@ -48,6 +50,7 @@
   width: 50%;
   height: 100%;
   float: right;
+  overflow: auto;
 }
 
 .stack-elem-selected {
