@@ -4,6 +4,7 @@ import MathStack from './components/MathStack';
 import './App.css';
 import * as M from './Machine';
 import XMLViewer from 'react-xml-viewer';
+import ReactDOMServer from 'react-dom/server';
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -59,25 +60,30 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
 
 const App = () => {
   const [stack, setStack] = React.useState<JSX.Element[]>([]);
-  const [mathmlText, setMathmlText] = React.useState<string>("");
+  const [selected, setSelected] = React.useState<number | null>(null);
 
   const commandAdd = (cmd: string) => {
     const newstk = interpret(stack, cmd);
     setStack(newstk);
-  };
-
-  const showMathmlText = (text: string) => {
-    setMathmlText(text);
+    if (selected !== null) {
+      setSelected(Math.min(selected, newstk.length-1));
+    }
   };
 
   return (
     <div className="App">
       <div id="main-view">
         <div id="mathstack-wrapper">
-          <MathStack stack={stack} showText={showMathmlText}/>
+          <MathStack stack={stack} selected={selected} setSelected={setSelected}/>
         </div>
         <div id="mathml-textarea">
-          <XMLViewer xml={mathmlText} />
+          <XMLViewer
+            xml={
+              selected !== null
+                ? ReactDOMServer.renderToStaticMarkup(stack.slice().reverse()[selected])
+                : ""
+            }
+          />
         </div>
       </div>
       <div id="command-input-wrapper">

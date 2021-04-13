@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
 type Props = {
   stack: JSX.Element[];
-  showText: (text: string) => void;
+  selected: number | null;
+  setSelected : React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-const MathStack: React.FC<Props> = ({ stack, showText }: Props) => {
-  const [selected, setSelected] = React.useState<number | null>(null);
-
+const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => {
   return (
     <ul>
       {
@@ -19,7 +17,6 @@ const MathStack: React.FC<Props> = ({ stack, showText }: Props) => {
             onMouseOver={
               () => {
                 setSelected(i);
-                showText(ReactDOMServer.renderToStaticMarkup(elem));
               }
             }
           >
