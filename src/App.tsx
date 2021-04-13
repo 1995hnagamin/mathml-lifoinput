@@ -25,18 +25,18 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
   if (cmd.match(/^[a-zA-Z]$/)) {
     return M.pushMi(stack, cmd);
   }
-  const Mi = cmd.match(/^mi:"(?<variable>[a-zA-Z]+)"$/);
-  if (Mi) {
-    return M.pushMi(stack, Mi.groups!.variable);
+  const MiCom = cmd.match(/^mi:"(?<variable>[a-zA-Z]+)"$/);
+  if (MiCom) {
+    return M.pushMi(stack, MiCom.groups!.variable);
   }
-  if (cmd.match(/^@[a-z]+="[^"]*"$/)) {
-    const found = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
-    console.log(found!.groups!);
-    return M.addAttribute(stack, found!.groups!.name, found!.groups!.value);
+  const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
+  if (AttrCom) {
+    console.log(AttrCom!.groups!);
+    return M.addAttribute(stack, AttrCom!.groups!.name, AttrCom!.groups!.value);
   }
-  if (cmd.match(/^mrow:[0-9]+$/)) {
-    const found = cmd.match(/^mrow:(?<arity>[0-9]+)$/);
-    const arity: number = +(found!.groups!.arity);
+  const MrowCom = cmd.match(/^mrow:(?<arity>[0-9]+)$/);
+  if (MrowCom) {
+    const arity: number = +(MrowCom!.groups!.arity);
     return M.createElement(stack, 'mrow', arity);
   }
   if (cmd in elemArityMap) {

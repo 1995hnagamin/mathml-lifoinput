@@ -28,7 +28,7 @@ export const addAttribute = (stack: Stack, name: string, value: string): Stack =
   const bottom = popElement(stack);
   const top = stack[0];
   console.log(name, value);
-  return pushElement(bottom, React.cloneElement(top, {[name]: value}));
+  return pushElement(bottom, React.cloneElement(top, { [name]: value }));
 }
 
 export const pushMn = (stack: Stack, numeral: string): Stack => {
