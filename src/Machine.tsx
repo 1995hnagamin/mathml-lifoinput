@@ -36,6 +36,9 @@ const cut1 = (stack: Stack): [Stack, Item] => {
 }
 
 const cut = (stack: Stack, nheads: number): [Stack, Stack] => {
+  if (stack.length < nheads) {
+    throw new Error("pop from empty stack");
+  }
   const tail = stack.slice(0, stack.length - nheads);
   const front = stack.slice(stack.length - nheads);
   return [tail, front];

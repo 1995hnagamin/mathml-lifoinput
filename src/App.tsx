@@ -55,8 +55,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     const count: number = +(Packit.groups!.count);
     return M.packInvisibleTimes(stack, count);
   }
-  console.log(`error: unknown command "${cmd}"`);
-  return stack;
+  throw new Error(`unknown command "${cmd}"`);
 }
 
 const App = () => {
@@ -78,8 +77,12 @@ const App = () => {
   }
 
   const commandAdd = (cmd: string) => {
-    const newenv = interpret(env, cmd);
-    addEnvToHistory(newenv);
+    try {
+      const newenv = interpret(env, cmd);
+      addEnvToHistory(newenv);
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   const handleDragEnd = (result: any) => {
