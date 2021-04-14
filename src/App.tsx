@@ -5,6 +5,7 @@ import './App.css';
 import * as M from './Machine';
 import XMLViewer from 'react-xml-viewer';
 import ReactDOMServer from 'react-dom/server';
+import { DragDropContext } from "react-beautiful-dnd";
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -66,23 +67,40 @@ const App = () => {
     if (newenv.stack.length === 0) {
       setSelected(null);
     } else if (selected !== null) {
-      setSelected(Math.min(selected, newenv.stack.length-1));
+      setSelected(Math.min(selected, newenv.stack.length - 1));
     }
     setEnv(newenv);
   };
+
+  const handleDragEnd = (result: any) => {
+    if (result.destination === null) {
+      return;
+    }
+    const stack = env.stack;
+    const [dropped] = stack.splice(result.source.index, 1);
+    stack.splice(result.destination.index, 0, dropped);
+    setEnv({
+      stack,
+      fresh: env.fresh
+    });
+  }
 
   return (
     <div className="App">
       <div id="main-view">
         <div id="input-area">
-          <div id="mathstack-wrapper">
-            <MathStack
-              stack={env.stack}
-              selected={selected} setSelected={setSelected}
-            />
-          </div>
+          <DragDropContext
+            onDragEnd={handleDragEnd}
+          >
+            <div id="mathstack-wrapper">
+              <MathStack
+                stack={env.stack}
+                selected={selected} setSelected={setSelected}
+              />
+            </div>
+          </DragDropContext>
           <div id="command-input-wrapper">
-            <Input commandAdded={commandAdd}/>
+            <Input commandAdded={commandAdd} />
           </div>
         </div>
         <div id="mathml-textarea">
