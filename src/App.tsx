@@ -61,28 +61,57 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
 const App = () => {
   const [env, setEnv] = React.useState<M.Env>(M.empty());
   const [selected, setSelected] = React.useState<number | null>(null);
+  const [history, setHistory] = React.useState<M.Env[]>([env]);
+  const [historyIndex, setHistoryIndex] = React.useState<number>(0);
+
+  const addEnvToHistory = (env: M.Env) => {
+    if (env.stack.length === 0) {
+      setSelected(null);
+    } else if (selected !== null) {
+      setSelected(Math.min(selected, env.stack.length - 1));
+    }
+    setEnv(env);
+    const newhistory = history.slice(0, historyIndex+1).concat(env);
+    setHistory(newhistory);
+    setHistoryIndex(newhistory.length-1);
+  }
 
   const commandAdd = (cmd: string) => {
     const newenv = interpret(env, cmd);
-    if (newenv.stack.length === 0) {
-      setSelected(null);
-    } else if (selected !== null) {
-      setSelected(Math.min(selected, newenv.stack.length - 1));
-    }
-    setEnv(newenv);
+    addEnvToHistory(newenv);
   };
 
   const handleDragEnd = (result: any) => {
     if (result.destination === null) {
       return;
     }
-    const stack = env.stack;
+    const stack = env.stack.slice();
     const [dropped] = stack.splice(result.source.index, 1);
     stack.splice(result.destination.index, 0, dropped);
-    setEnv({
-      stack,
+    addEnvToHistory({
+      stack: stack,
       fresh: env.fresh
     });
+  }
+
+  const handleUndo = () => {
+    if (historyIndex < 1) {
+      return;
+    }
+    const newidx = historyIndex - 1;
+    setSelected(null);
+    setHistoryIndex(newidx);
+    setEnv(history[newidx]);
+  }
+
+  const handleRedo = () => {
+    if (historyIndex + 1 >= history.length) {
+      return;
+    }
+    const newidx = historyIndex + 1;
+    setSelected(null);
+    setHistoryIndex(newidx);
+    setEnv(history[newidx]);
   }
 
   return (
@@ -92,6 +121,18 @@ const App = () => {
           <DragDropContext
             onDragEnd={handleDragEnd}
           >
+            <button
+              onClick={handleUndo}
+              disabled={historyIndex < 1}
+            >
+              undo
+            </button>
+            <button
+              onClick={handleRedo}
+              disabled={historyIndex + 1 >= history.length}
+            >
+              redo
+            </button>
             <div id="mathstack-wrapper">
               <MathStack
                 stack={env.stack}
