@@ -64,12 +64,12 @@ const App = () => {
 
   const commandAdd = (cmd: string) => {
     const newenv = interpret(env, cmd);
-    setEnv(newenv);
     if (newenv.stack.length === 0) {
       setSelected(null);
     } else if (selected !== null) {
       setSelected(Math.min(selected, newenv.stack.length-1));
     }
+    setEnv(newenv);
   };
 
   return (
