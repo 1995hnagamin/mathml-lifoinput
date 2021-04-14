@@ -28,7 +28,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^[a-zA-Z]$/)) {
     return M.pushMi(stack, cmd);
   }
-  const MiCom = cmd.match(/^mi:"(?<variable>[^"]+)"$/);
+  const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
   if (MiCom) {
     return M.pushMi(stack, MiCom.groups!.variable);
   }
@@ -36,7 +36,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (AttrCom) {
     return M.addAttribute(stack, AttrCom.groups!.name, AttrCom.groups!.value);
   }
-  const MrowCom = cmd.match(/^mrow:(?<arity>[0-9]+)$/);
+  const MrowCom = cmd.match(/^mrow (?<arity>[0-9]+)$/);
   if (MrowCom) {
     const arity: number = +(MrowCom.groups!.arity);
     return M.assemble(stack, 'mrow', arity);
@@ -50,7 +50,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd === '\\pop') {
     return M.pop(stack);
   }
-  const Packit = cmd.match(/^\\packit:(?<count>[0-9]+)$/);
+  const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit) {
     const count: number = +(Packit.groups!.count);
     return M.packInvisibleTimes(stack, count);
