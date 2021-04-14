@@ -32,22 +32,21 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
   if (AttrCom) {
-    console.log(AttrCom!.groups!);
-    return M.addAttribute(stack, AttrCom!.groups!.name, AttrCom!.groups!.value);
+    return M.addAttribute(stack, AttrCom.groups!.name, AttrCom.groups!.value);
   }
   const MrowCom = cmd.match(/^mrow:(?<arity>[0-9]+)$/);
   if (MrowCom) {
-    const arity: number = +(MrowCom!.groups!.arity);
-    return M.createElement(stack, 'mrow', arity);
+    const arity: number = +(MrowCom.groups!.arity);
+    return M.assemble(stack, 'mrow', arity);
   }
   if (cmd in elemArityMap) {
-    return M.createElement(stack, cmd, elemArityMap[cmd]);
+    return M.assemble(stack, cmd, elemArityMap[cmd]);
   }
   if (operators.includes(cmd)) {
     return M.pushMo(stack, cmd);
   }
   if (cmd === '\\pop') {
-    return M.popElement(stack);
+    return M.pop(stack);
   }
   const Packit = cmd.match(/^\\packit:(?<count>[0-9]+)$/);
   if (Packit) {
