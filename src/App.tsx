@@ -19,7 +19,7 @@ const operators = [
   '=', '>', '<',
 ];
 
-const interpret = (stack: M.Stack, cmd: string): M.Stack => {
+const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
     return M.pushMn(stack, cmd);
   }
@@ -59,16 +59,16 @@ const interpret = (stack: M.Stack, cmd: string): M.Stack => {
 }
 
 const App = () => {
-  const [stack, setStack] = React.useState<JSX.Element[]>([]);
+  const [env, setEnv] = React.useState<M.Env>(M.empty());
   const [selected, setSelected] = React.useState<number | null>(null);
 
   const commandAdd = (cmd: string) => {
-    const newstk = interpret(stack, cmd);
-    setStack(newstk);
-    if (newstk.length === 0) {
+    const newenv = interpret(env, cmd);
+    setEnv(newenv);
+    if (newenv.stack.length === 0) {
       setSelected(null);
     } else if (selected !== null) {
-      setSelected(Math.min(selected, newstk.length-1));
+      setSelected(Math.min(selected, newenv.stack.length-1));
     }
   };
 
@@ -77,7 +77,10 @@ const App = () => {
       <div id="main-view">
         <div id="input-area">
           <div id="mathstack-wrapper">
-            <MathStack stack={stack} selected={selected} setSelected={setSelected}/>
+            <MathStack
+              stack={env.stack}
+              selected={selected} setSelected={setSelected}
+            />
           </div>
           <div id="command-input-wrapper">
             <Input commandAdded={commandAdd}/>
@@ -87,7 +90,7 @@ const App = () => {
           <XMLViewer
             xml={
               selected !== null
-                ? ReactDOMServer.renderToStaticMarkup(stack[selected])
+                ? ReactDOMServer.renderToStaticMarkup(env.stack[selected].elem)
                 : ""
             }
             invalidXml={

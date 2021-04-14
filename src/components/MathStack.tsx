@@ -1,7 +1,8 @@
 import React from 'react';
+import * as M from '../Machine';
 
 type Props = {
-  stack: JSX.Element[];
+  stack: M.Stack;
   selected: number | null;
   setSelected : React.Dispatch<React.SetStateAction<number | null>>;
 };
@@ -10,10 +11,14 @@ const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => 
   return (
     <ul>
       {
-        stack.map((elem, i) =>
+        stack.map((item, i) =>
           <li
-            key={i}
-            className={i === selected ? 'stack-elem-selected' : 'stack-elem-not-selected'}
+            key={item.id}
+            className={
+              i === selected
+                ? 'stack-elem-selected'
+                : 'stack-elem-not-selected'
+            }
             onMouseOver={
               () => {
                 setSelected(i);
@@ -24,7 +29,7 @@ const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => 
               React.createElement(
                 'math',
                 { xmlns: "http://www.w3.org/1998/Math/MathML" },
-                elem)
+                item.elem)
             }
           </li>
         )
