@@ -21,11 +21,20 @@ const operators = [
   '=', '>', '<',
 ];
 
+const entityRefs = [
+  '&infin;',
+  '&int;',
+  '&pi;',
+];
+
 const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
     return M.pushMn(stack, cmd);
   }
   if (cmd.match(/^[a-zA-Z]$/)) {
+    return M.pushMi(stack, cmd);
+  }
+  if (entityRefs.includes(cmd)) {
     return M.pushMi(stack, cmd);
   }
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
