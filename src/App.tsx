@@ -26,6 +26,7 @@ const entityRefs = [
   '&infin;',
   '&int;',
   '&pi;',
+  '&PlusMinus;',
 ];
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
