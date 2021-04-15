@@ -12,6 +12,7 @@ const elemArityMap: Record<string, number> = {
   mroot: 2,
   msqrt: 1,
   msub: 2,
+  msubsup: 3,
   msup: 2,
   mstyle: 1,
 } as const;
