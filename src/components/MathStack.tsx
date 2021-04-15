@@ -1,6 +1,8 @@
 import React from 'react';
 import * as M from '../Machine';
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import MathJax from 'react-mathjax-preview';
+import ReactDOMServer from 'react-dom/server';
 
 type Props = {
   stack: M.Stack;
@@ -43,12 +45,9 @@ const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => 
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        {
-                          React.createElement(
-                            'math',
-                            { xmlns: "http://www.w3.org/1998/Math/MathML" },
-                            item.elem)
-                        }
+                        <MathJax
+                          math={`<math>${ReactDOMServer.renderToStaticMarkup(item.elem)}</math>`}
+                        />
                       </li>
                     )
                   }
