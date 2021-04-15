@@ -2,6 +2,33 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Example
+
+```
+x
+=
+-
+b
+mrow 2
+&PlusMinus;
+b
+2
+msup
+-
+4
+a
+c
+\packit 3
+mrow 3
+msqrt
+mrow 3
+2
+a
+\packit 2
+mfrac
+mrow 3
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
