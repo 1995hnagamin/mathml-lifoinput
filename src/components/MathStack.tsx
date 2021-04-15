@@ -54,6 +54,7 @@ const MathStack: React.FC<Props> = ({ stack, selected, setSelected }: Props) => 
                 </Draggable>
               ))
             }
+            {provided.placeholder}
           </ul>
         )
       }
