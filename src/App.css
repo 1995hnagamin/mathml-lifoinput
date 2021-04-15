@@ -45,6 +45,18 @@
   overflow: auto;
 }
 
+ul.stack-items {
+  margin-left: 8px;
+  padding: 0;
+}
+
+ul.stack-items li {
+  list-style-type: none;
+  border-left: medium solid #000;
+  margin: 8px 8px 0 0;
+  padding: 8px;
+}
+
 #mathml-textarea {
   background-color: #eee;
   width: 50%;
