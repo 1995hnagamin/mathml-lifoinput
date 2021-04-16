@@ -89,7 +89,7 @@ const App: React.FC = () => {
   };
 
   const handleDragEnd = (result: DropResult) => {
-    if (result.destination === null) {
+    if (!result.destination) {
       return;
     }
     const stack = env.stack.slice();
