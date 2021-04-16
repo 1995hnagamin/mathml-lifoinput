@@ -67,6 +67,7 @@ const App: React.FC = () => {
   const [history, setHistory] = React.useState<M.Env[]>([env]);
   const [historyIndex, setHistoryIndex] = React.useState<number>(0);
 
+  // eslint-disable-next-line no-shadow
   const addEnvToHistory = (env: M.Env) => {
     if (env.stack.length === 0) {
       setSelected(null);
@@ -84,6 +85,7 @@ const App: React.FC = () => {
       const newenv = interpret(env, cmd);
       addEnvToHistory(newenv);
     } catch (e) {
+      // eslint-disable-next-line no-alert
       alert(e.message);
     }
   };
