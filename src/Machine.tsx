@@ -17,7 +17,10 @@ export const empty = (): Env => {
   };
 };
 
-export const push = ({ stack, fresh }: Env, newElement: JSX.Element): Env => {
+export const push = (
+  { stack, fresh, ...env }: Env,
+  newElement: JSX.Element
+): Env => {
   const item = {
     elem: newElement,
     id: fresh,
@@ -25,6 +28,7 @@ export const push = ({ stack, fresh }: Env, newElement: JSX.Element): Env => {
   return {
     stack: [...stack, item],
     fresh: fresh + 1,
+    ...env,
   };
 };
 
@@ -45,24 +49,24 @@ const createElement = (tag: string, text: React.ReactNode): JSX.Element => {
   return React.createElement(tag, {}, text);
 };
 
-export const pop = ({ stack, fresh }: Env): Env => {
+export const pop = ({ stack, ...env }: Env): Env => {
   if (stack.length < 1) {
     throw new Error('pop from empty stack');
   }
   return {
     stack: cut1(stack)[0],
-    fresh,
+    ...env,
   };
 };
 
 export const assemble = (
-  { stack, fresh }: Env,
+  { stack, ...env }: Env,
   tag: string,
   npop: number
 ): Env => {
   const [tail, front] = cut(stack, npop);
   return push(
-    { stack: tail, fresh },
+    { stack: tail, ...env },
     createElement(
       tag,
       front.map((item) => item.elem)
@@ -71,13 +75,13 @@ export const assemble = (
 };
 
 export const addAttribute = (
-  { stack, fresh }: Env,
+  { stack, ...env }: Env,
   name: string,
   value: string
 ): Env => {
   const [tail, top] = cut1(stack);
   const elem = React.cloneElement(top.elem, { [name]: value });
-  return push({ stack: tail, fresh }, elem);
+  return push({ stack: tail, ...env }, elem);
 };
 
 const pushTokenNode = (tag: string) => (env: Env, text: string): Env =>
@@ -90,7 +94,7 @@ export const pushMi: (env: Env, ident: string) => Env = pushTokenNode('mi');
 export const pushMo: (env: Env, operator: string) => Env = pushTokenNode('mo');
 
 export const packInvisibleTimes = (
-  { stack, fresh }: Env,
+  { stack, ...env }: Env,
   nchd: number
 ): Env => {
   const [tail, front] = cut(stack, nchd);
@@ -102,5 +106,5 @@ export const packInvisibleTimes = (
     []
   );
 
-  return push({ stack: tail, fresh }, createElement('mrow', children));
+  return push({ stack: tail, ...env }, createElement('mrow', children));
 };
