@@ -1,11 +1,11 @@
 import React from 'react';
+import XMLViewer from 'react-xml-viewer';
+import ReactDOMServer from 'react-dom/server';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Input from './components/Input';
 import MathStack from './components/MathStack';
 import './App.css';
 import * as M from './Machine';
-import XMLViewer from 'react-xml-viewer';
-import ReactDOMServer from 'react-dom/server';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
