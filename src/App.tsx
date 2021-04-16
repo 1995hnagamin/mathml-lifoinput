@@ -61,7 +61,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   throw new Error(`unknown command "${cmd}"`);
 };
 
-const App = () => {
+const App: React.FC = () => {
   const [env, setEnv] = React.useState<M.Env>(M.empty());
   const [selected, setSelected] = React.useState<number | null>(null);
   const [history, setHistory] = React.useState<M.Env[]>([env]);
