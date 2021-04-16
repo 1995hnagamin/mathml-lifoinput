@@ -22,6 +22,11 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "import/no-unresolved": "off"
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+        "import/extensions": ["error", "never"],
+        "import/no-unresolved": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }
