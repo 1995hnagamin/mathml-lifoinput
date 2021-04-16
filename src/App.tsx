@@ -5,7 +5,7 @@ import './App.css';
 import * as M from './Machine';
 import XMLViewer from 'react-xml-viewer';
 import ReactDOMServer from 'react-dom/server';
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -17,17 +17,9 @@ const elemArityMap: Record<string, number> = {
   mstyle: 1,
 } as const;
 
-const operators = [
-  '+', '-', ',', '[', ']', '(', ')', '{', '}',
-  '=', '>', '<',
-];
+const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
 
-const entityRefs = [
-  '&infin;',
-  '&int;',
-  '&pi;',
-  '&PlusMinus;',
-];
+const entityRefs = ['&infin;', '&int;', '&pi;', '&PlusMinus;'];
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
@@ -49,7 +41,7 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   const MrowCom = cmd.match(/^mrow (?<arity>[0-9]+)$/);
   if (MrowCom) {
-    const arity: number = +(MrowCom.groups!.arity);
+    const arity: number = +MrowCom.groups!.arity;
     return M.assemble(stack, 'mrow', arity);
   }
   if (cmd in elemArityMap) {
@@ -63,11 +55,11 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit) {
-    const count: number = +(Packit.groups!.count);
+    const count: number = +Packit.groups!.count;
     return M.packInvisibleTimes(stack, count);
   }
   throw new Error(`unknown command "${cmd}"`);
-}
+};
 
 const App = () => {
   const [env, setEnv] = React.useState<M.Env>(M.empty());
@@ -82,10 +74,10 @@ const App = () => {
       setSelected(Math.min(selected, env.stack.length - 1));
     }
     setEnv(env);
-    const newhistory = history.slice(0, historyIndex+1).concat(env);
+    const newhistory = history.slice(0, historyIndex + 1).concat(env);
     setHistory(newhistory);
-    setHistoryIndex(newhistory.length-1);
-  }
+    setHistoryIndex(newhistory.length - 1);
+  };
 
   const commandAdd = (cmd: string) => {
     try {
@@ -104,10 +96,10 @@ const App = () => {
     const [dropped] = stack.splice(result.source.index, 1);
     stack.splice(result.destination.index, 0, dropped);
     addEnvToHistory({
-      stack: stack,
-      fresh: env.fresh
+      stack,
+      fresh: env.fresh,
     });
-  }
+  };
 
   const handleUndo = () => {
     if (historyIndex < 1) {
@@ -117,7 +109,7 @@ const App = () => {
     setSelected(null);
     setHistoryIndex(newidx);
     setEnv(history[newidx]);
-  }
+  };
 
   const handleRedo = () => {
     if (historyIndex + 1 >= history.length) {
@@ -127,19 +119,14 @@ const App = () => {
     setSelected(null);
     setHistoryIndex(newidx);
     setEnv(history[newidx]);
-  }
+  };
 
   return (
     <div className="App">
       <div id="main-view">
         <div id="input-area">
-          <DragDropContext
-            onDragEnd={handleDragEnd}
-          >
-            <button
-              onClick={handleUndo}
-              disabled={historyIndex < 1}
-            >
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <button onClick={handleUndo} disabled={historyIndex < 1}>
               undo
             </button>
             <button
@@ -151,7 +138,8 @@ const App = () => {
             <div id="mathstack-wrapper">
               <MathStack
                 stack={env.stack}
-                selected={selected} setSelected={setSelected}
+                selected={selected}
+                setSelected={setSelected}
               />
             </div>
           </DragDropContext>
@@ -164,11 +152,9 @@ const App = () => {
             xml={
               selected !== null
                 ? ReactDOMServer.renderToStaticMarkup(env.stack[selected].elem)
-                : ""
+                : ''
             }
-            invalidXml={
-              ""
-            }
+            invalidXml=""
           />
         </div>
       </div>
