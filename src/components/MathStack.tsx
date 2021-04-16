@@ -36,6 +36,9 @@ const MathStack: React.FC<Props> = ({
                   onMouseOver={() => {
                     setSelected(i);
                   }}
+                  onFocus={() => {
+                    setSelected(i);
+                  }}
                   ref={dragprov.innerRef}
                   {...dragprov.draggableProps}
                   {...dragprov.dragHandleProps}
