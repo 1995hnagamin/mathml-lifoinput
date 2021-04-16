@@ -32,16 +32,16 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     return M.pushMi(stack, cmd);
   }
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
-  if (MiCom) {
-    return M.pushMi(stack, MiCom.groups!.variable);
+  if (MiCom && MiCom.groups) {
+    return M.pushMi(stack, MiCom.groups.variable);
   }
   const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
-  if (AttrCom) {
-    return M.addAttribute(stack, AttrCom.groups!.name, AttrCom.groups!.value);
+  if (AttrCom && AttrCom.groups) {
+    return M.addAttribute(stack, AttrCom.groups.name, AttrCom.groups.value);
   }
   const MrowCom = cmd.match(/^mrow (?<arity>[0-9]+)$/);
-  if (MrowCom) {
-    const arity: number = +MrowCom.groups!.arity;
+  if (MrowCom && MrowCom.groups) {
+    const arity: number = +MrowCom.groups.arity;
     return M.assemble(stack, 'mrow', arity);
   }
   if (cmd in elemArityMap) {
@@ -54,8 +54,8 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     return M.pop(stack);
   }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
-  if (Packit) {
-    const count: number = +Packit.groups!.count;
+  if (Packit && Packit.groups) {
+    const count: number = +Packit.groups.count;
     return M.packInvisibleTimes(stack, count);
   }
   throw new Error(`unknown command "${cmd}"`);
