@@ -17,15 +17,15 @@ const MathStack: React.FC<Props> = ({
 }: Props) => {
   return (
     <Droppable droppableId="stack-items">
-      {(provided) => (
+      {(dropprov) => (
         <ul
           className="stack-items"
-          {...provided.droppableProps}
-          ref={provided.innerRef}
+          {...dropprov.droppableProps}
+          ref={dropprov.innerRef}
         >
           {stack.map((item, i) => (
             <Draggable key={item.id} draggableId={`${item.id}`} index={i}>
-              {(provided) => (
+              {(dragprov) => (
                 <li
                   key={item.id}
                   className={
@@ -36,9 +36,9 @@ const MathStack: React.FC<Props> = ({
                   onMouseOver={() => {
                     setSelected(i);
                   }}
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
+                  ref={dragprov.innerRef}
+                  {...dragprov.draggableProps}
+                  {...dragprov.dragHandleProps}
                 >
                   <MathJax
                     math={`<math>${ReactDOMServer.renderToStaticMarkup(
@@ -49,7 +49,7 @@ const MathStack: React.FC<Props> = ({
               )}
             </Draggable>
           ))}
-          {provided.placeholder}
+          {dropprov.placeholder}
         </ul>
       )}
     </Droppable>
