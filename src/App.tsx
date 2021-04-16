@@ -103,7 +103,6 @@ const App: React.FC = () => {
     });
   };
 
-
   const handleUndo = () => {
     if (historyIndex < 1) {
       return;
