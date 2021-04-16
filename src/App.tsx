@@ -1,11 +1,11 @@
 import React from 'react';
+import XMLViewer from 'react-xml-viewer';
+import ReactDOMServer from 'react-dom/server';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Input from './components/Input';
 import MathStack from './components/MathStack';
 import './App.css';
 import * as M from './Machine';
-import XMLViewer from 'react-xml-viewer';
-import ReactDOMServer from 'react-dom/server';
-import { DragDropContext } from "react-beautiful-dnd";
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -17,17 +17,9 @@ const elemArityMap: Record<string, number> = {
   mstyle: 1,
 } as const;
 
-const operators = [
-  '+', '-', ',', '[', ']', '(', ')', '{', '}',
-  '=', '>', '<',
-];
+const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
 
-const entityRefs = [
-  '&infin;',
-  '&int;',
-  '&pi;',
-  '&PlusMinus;',
-];
+const entityRefs = ['&infin;', '&int;', '&pi;', '&PlusMinus;'];
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
@@ -40,16 +32,16 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     return M.pushMi(stack, cmd);
   }
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
-  if (MiCom) {
-    return M.pushMi(stack, MiCom.groups!.variable);
+  if (MiCom && MiCom.groups) {
+    return M.pushMi(stack, MiCom.groups.variable);
   }
   const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
-  if (AttrCom) {
-    return M.addAttribute(stack, AttrCom.groups!.name, AttrCom.groups!.value);
+  if (AttrCom && AttrCom.groups) {
+    return M.addAttribute(stack, AttrCom.groups.name, AttrCom.groups.value);
   }
   const MrowCom = cmd.match(/^mrow (?<arity>[0-9]+)$/);
-  if (MrowCom) {
-    const arity: number = +(MrowCom.groups!.arity);
+  if (MrowCom && MrowCom.groups) {
+    const arity: number = +MrowCom.groups.arity;
     return M.assemble(stack, 'mrow', arity);
   }
   if (cmd in elemArityMap) {
@@ -62,19 +54,20 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     return M.pop(stack);
   }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
-  if (Packit) {
-    const count: number = +(Packit.groups!.count);
+  if (Packit && Packit.groups) {
+    const count: number = +Packit.groups.count;
     return M.packInvisibleTimes(stack, count);
   }
   throw new Error(`unknown command "${cmd}"`);
-}
+};
 
-const App = () => {
+const App: React.FC = () => {
   const [env, setEnv] = React.useState<M.Env>(M.empty());
   const [selected, setSelected] = React.useState<number | null>(null);
   const [history, setHistory] = React.useState<M.Env[]>([env]);
   const [historyIndex, setHistoryIndex] = React.useState<number>(0);
 
+  // eslint-disable-next-line no-shadow
   const addEnvToHistory = (env: M.Env) => {
     if (env.stack.length === 0) {
       setSelected(null);
@@ -82,32 +75,33 @@ const App = () => {
       setSelected(Math.min(selected, env.stack.length - 1));
     }
     setEnv(env);
-    const newhistory = history.slice(0, historyIndex+1).concat(env);
+    const newhistory = history.slice(0, historyIndex + 1).concat(env);
     setHistory(newhistory);
-    setHistoryIndex(newhistory.length-1);
-  }
+    setHistoryIndex(newhistory.length - 1);
+  };
 
   const commandAdd = (cmd: string) => {
     try {
       const newenv = interpret(env, cmd);
       addEnvToHistory(newenv);
     } catch (e) {
+      // eslint-disable-next-line no-alert
       alert(e.message);
     }
   };
 
-  const handleDragEnd = (result: any) => {
-    if (result.destination === null) {
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) {
       return;
     }
     const stack = env.stack.slice();
     const [dropped] = stack.splice(result.source.index, 1);
     stack.splice(result.destination.index, 0, dropped);
     addEnvToHistory({
-      stack: stack,
-      fresh: env.fresh
+      stack,
+      fresh: env.fresh,
     });
-  }
+  };
 
   const handleUndo = () => {
     if (historyIndex < 1) {
@@ -117,7 +111,7 @@ const App = () => {
     setSelected(null);
     setHistoryIndex(newidx);
     setEnv(history[newidx]);
-  }
+  };
 
   const handleRedo = () => {
     if (historyIndex + 1 >= history.length) {
@@ -127,22 +121,22 @@ const App = () => {
     setSelected(null);
     setHistoryIndex(newidx);
     setEnv(history[newidx]);
-  }
+  };
 
   return (
     <div className="App">
       <div id="main-view">
         <div id="input-area">
-          <DragDropContext
-            onDragEnd={handleDragEnd}
-          >
+          <DragDropContext onDragEnd={handleDragEnd}>
             <button
+              type="button"
               onClick={handleUndo}
               disabled={historyIndex < 1}
             >
               undo
             </button>
             <button
+              type="button"
               onClick={handleRedo}
               disabled={historyIndex + 1 >= history.length}
             >
@@ -151,7 +145,8 @@ const App = () => {
             <div id="mathstack-wrapper">
               <MathStack
                 stack={env.stack}
-                selected={selected} setSelected={setSelected}
+                selected={selected}
+                setSelected={setSelected}
               />
             </div>
           </DragDropContext>
@@ -164,11 +159,9 @@ const App = () => {
             xml={
               selected !== null
                 ? ReactDOMServer.renderToStaticMarkup(env.stack[selected].elem)
-                : ""
+                : ''
             }
-            invalidXml={
-              ""
-            }
+            invalidXml=""
           />
         </div>
       </div>

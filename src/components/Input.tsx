@@ -9,12 +9,8 @@ type FormData = {
   command: string;
 };
 
-const Input: React.FC<Props> = ({ commandAdded } : Props) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-  } = useForm<FormData>();
+const Input: React.FC<Props> = ({ commandAdded }: Props) => {
+  const { register, handleSubmit, reset } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
     commandAdded(data.command);
     reset();
@@ -22,7 +18,7 @@ const Input: React.FC<Props> = ({ commandAdded } : Props) => {
 
   return (
     <form id="command-input" onSubmit={handleSubmit(onSubmit)}>
-      <input id="command-input-text" name="command" ref={register}/>
+      <input id="command-input-text" name="command" ref={register} />
       <input id="command-input-button" type="submit" />
     </form>
   );
