@@ -126,10 +126,15 @@ const App = () => {
       <div id="main-view">
         <div id="input-area">
           <DragDropContext onDragEnd={handleDragEnd}>
-            <button onClick={handleUndo} disabled={historyIndex < 1}>
+            <button
+              type="button"
+              onClick={handleUndo}
+              disabled={historyIndex < 1}
+            >
               undo
             </button>
             <button
+              type="button"
               onClick={handleRedo}
               disabled={historyIndex + 1 >= history.length}
             >
