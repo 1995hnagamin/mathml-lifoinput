@@ -5,7 +5,7 @@ import './App.css';
 import * as M from './Machine';
 import XMLViewer from 'react-xml-viewer';
 import ReactDOMServer from 'react-dom/server';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 const elemArityMap: Record<string, number> = {
   mfrac: 2,
@@ -88,7 +88,7 @@ const App: React.FC = () => {
     }
   };
 
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (result.destination === null) {
       return;
     }
