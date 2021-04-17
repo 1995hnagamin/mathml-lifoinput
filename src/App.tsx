@@ -1,7 +1,8 @@
 import React from 'react';
-import XMLViewer from 'react-xml-viewer';
+import beautify from 'xml-beautifier';
 import ReactDOMServer from 'react-dom/server';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import he from 'he';
 import Input from './components/Input';
 import MathStack from './components/MathStack';
 import './App.css';
@@ -160,14 +161,20 @@ const App: React.FC = () => {
           </div>
         </div>
         <div id="mathml-textarea">
-          <XMLViewer
-            xml={
-              selected !== null
-                ? ReactDOMServer.renderToStaticMarkup(env.stack[selected].elem)
-                : ''
-            }
-            invalidXml=""
-          />
+          <pre>
+            <code>
+              {beautify(
+                he.encode(
+                  selected !== null
+                    ? ReactDOMServer.renderToStaticMarkup(
+                        env.stack[selected].elem
+                      )
+                    : '',
+                  { allowUnsafeSymbols: true }
+                )
+              )}
+            </code>
+          </pre>
         </div>
       </div>
     </div>
