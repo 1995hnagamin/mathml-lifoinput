@@ -1,10 +1,8 @@
 import React from 'react';
-import beautify from 'xml-beautifier';
-import ReactDOMServer from 'react-dom/server';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import he from 'he';
 import Input from './components/Input';
 import MathStack from './components/MathStack';
+import CodeView from './components/CodeView';
 import './App.css';
 import * as M from './Machine';
 
@@ -161,20 +159,7 @@ const App: React.FC = () => {
           </div>
         </div>
         <div id="mathml-textarea">
-          <pre>
-            <code>
-              {beautify(
-                he.encode(
-                  selected !== null
-                    ? ReactDOMServer.renderToStaticMarkup(
-                        env.stack[selected].elem
-                      )
-                    : '',
-                  { allowUnsafeSymbols: true }
-                )
-              )}
-            </code>
-          </pre>
+          <CodeView xml={selected !== null ? env.stack[selected].elem : null} />
         </div>
       </div>
     </div>
