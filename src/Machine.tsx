@@ -102,7 +102,7 @@ export const packInvisibleTimes = (
     (chd, item, i) =>
       i === 0
         ? [item.elem]
-        : chd.concat([createElement('mo', '&InvisibleTimes;'), item.elem]),
+        : chd.concat([createElement('mo', '\u{2062}'), item.elem]),
     []
   );
 

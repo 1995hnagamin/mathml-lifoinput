@@ -19,7 +19,12 @@ const elemArityMap: Record<string, number> = {
 
 const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
 
-const entityRefs = ['&infin;', '&int;', '&pi;', '&PlusMinus;'];
+const entityRefs: Record<string, string> = {
+  '&infin;': '\u{221e}',
+  '&int;': '\u{222b}',
+  '&pi;': '\u{03c0}',
+  '&PlusMinus;': '\u{00b1}',
+};
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
@@ -28,8 +33,8 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd.match(/^[a-zA-Z]$/)) {
     return M.pushMi(stack, cmd);
   }
-  if (entityRefs.includes(cmd)) {
-    return M.pushMi(stack, cmd);
+  if (cmd in entityRefs) {
+    return M.pushMi(stack, entityRefs[cmd]);
   }
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
   if (MiCom && MiCom.groups) {
