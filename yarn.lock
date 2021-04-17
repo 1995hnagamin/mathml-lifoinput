@@ -9521,7 +9521,7 @@ repeat-element@^1.1.2:
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.4.tgz#be681520847ab58c7568ac75fbfad28ed42d39e9"
   integrity sha512-LFiNfRcSu7KK3evMyYOuCzv3L10TW7yC1G2/+StMjK8Y6Vqd2MG7r/Qjw4ghtuCOjFvlnms/iMmLqpvW/ES/WQ==
 
-repeat-string@^1.6.1:
+repeat-string@1.6.1, repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
@@ -11653,6 +11653,13 @@ ws@^7.4.4:
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.4.tgz#383bc9742cb202292c9077ceab6f6047b17f2d59"
   integrity sha512-Qm8k8ojNQIMx7S+Zp8u/uHOx7Qazv3Yv4q68MiWWWOJhiwG5W3x7iqmRtJo8xxrciZUY4vRxUTJCKuRnF28ZZw==
+
+xml-beautifier@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/xml-beautifier/-/xml-beautifier-0.4.3.tgz#2d5e320e19bf70ac7343c01135a1f99df08b4c37"
+  integrity sha512-jtqVgG2mXX+mZYSq80tPWBcrtPGL3JwCtcME52c7Aau1R34quuJw86R9A+KFO7F6EQAaagUmMXGhDRKGV3UXhw==
+  dependencies:
+    repeat-string "1.6.1"
 
 xml-js@^1.6.11:
   version "1.6.11"
