@@ -29,7 +29,7 @@ const opEntityRefs: Record<string, string> = {
 };
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
-  if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
+  if (cmd.match(/^([0-9,]*.)?[0-9]+(e[0-9]+)?$/)) {
     return M.pushMn(stack, cmd);
   }
   if (cmd.match(/^[a-zA-Z]$/)) {
@@ -41,6 +41,14 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
   if (MiCom && MiCom.groups) {
     return M.pushMi(stack, MiCom.groups.variable);
+  }
+  const MnCom = cmd.match(/^mn "(?<numeral>[^"]+)"$/);
+  if (MnCom && MnCom.groups) {
+    return M.pushMn(stack, MnCom.groups.numeral);
+  }
+  const MoCom = cmd.match(/^mo "(?<operator>[^"]+)"$/);
+  if (MoCom && MoCom.groups) {
+    return M.pushMo(stack, MoCom.groups.operator);
   }
   const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
   if (AttrCom && AttrCom.groups) {
