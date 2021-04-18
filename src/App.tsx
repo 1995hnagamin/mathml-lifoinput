@@ -22,6 +22,9 @@ const entityRefs: Record<string, string> = {
   '&infin;': '\u{221e}',
   '&int;': '\u{222b}',
   '&pi;': '\u{03c0}',
+};
+
+const opEntityRefs: Record<string, string> = {
   '&PlusMinus;': '\u{00b1}',
 };
 
@@ -53,6 +56,9 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   if (operators.includes(cmd)) {
     return M.pushMo(stack, cmd);
+  }
+  if (cmd in opEntityRefs) {
+    return M.pushMo(stack, opEntityRefs[cmd]);
   }
   if (cmd === '\\pop') {
     return M.pop(stack);
