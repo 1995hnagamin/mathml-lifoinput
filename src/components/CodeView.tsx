@@ -16,6 +16,8 @@ const CodeView: React.FC<Props> = ({ xml }: Props) => {
         }),
         {
           collapseContent: true,
+          indentation: '  ',
+          lineSeparator: '\n',
         }
       )
     : '';
