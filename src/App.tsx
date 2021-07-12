@@ -30,6 +30,7 @@ const operators = [
   '=',
   '>',
   '<',
+  '|',
 ];
 
 const entityRefs: Record<string, string> = {
