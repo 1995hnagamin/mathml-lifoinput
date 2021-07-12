@@ -16,7 +16,21 @@ const elemArityMap: Record<string, number> = {
   mstyle: 1,
 } as const;
 
-const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
+const operators = [
+  '+',
+  '-',
+  ',',
+  '/',
+  '[',
+  ']',
+  '(',
+  ')',
+  '{',
+  '}',
+  '=',
+  '>',
+  '<',
+];
 
 const entityRefs: Record<string, string> = {
   // Latin Extended-B
