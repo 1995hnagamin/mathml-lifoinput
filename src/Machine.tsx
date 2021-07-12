@@ -108,3 +108,7 @@ export const packInvisibleTimes = (
 
   return push({ stack: tail, ...env }, createElement('mrow', children));
 };
+
+export const addPrime = ({ stack, ...env }: Env): Env => {
+  return assemble(pushMo({ stack, ...env }, "'"), 'msup', 2);
+};

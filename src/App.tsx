@@ -210,6 +210,12 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd === '\\pop') {
     return M.pop(stack);
   }
+  if (cmd === '\\prime') {
+    return M.pushMo(stack, "'");
+  }
+  if (cmd === "'") {
+    return M.addPrime(stack);
+  }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit && Packit.groups) {
     const count: number = +Packit.groups.count;
