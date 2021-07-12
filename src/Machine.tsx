@@ -93,21 +93,22 @@ export const pushMi: (env: Env, ident: string) => Env = pushTokenNode('mi');
 
 export const pushMo: (env: Env, operator: string) => Env = pushTokenNode('mo');
 
-export const packInvisibleTimes = (
+const packWithElem = (op: JSX.Element) => (
   { stack, ...env }: Env,
   nchd: number
 ): Env => {
   const [tail, front] = cut(stack, nchd);
   const children = front.reduce<JSX.Element[]>(
-    (chd, item, i) =>
-      i === 0
-        ? [item.elem]
-        : chd.concat([createElement('mo', '\u{2062}'), item.elem]),
+    (chd, item, i) => (i === 0 ? [item.elem] : chd.concat([op, item.elem])),
     []
   );
 
   return push({ stack: tail, ...env }, createElement('mrow', children));
 };
+
+export const packComma = packWithElem(createElement('mo', ','));
+
+export const packInvisibleTimes = packWithElem(createElement('mo', '\u{2062}'));
 
 export const addPrime = ({ stack, ...env }: Env): Env => {
   return assemble(pushMo({ stack, ...env }, "'"), 'msup', 2);

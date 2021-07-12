@@ -235,6 +235,11 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd === "'") {
     return M.addPrime(stack);
   }
+  const Packcomma = cmd.match(/^\\packcomma (?<count>[0-9]+)$/);
+  if (Packcomma && Packcomma.groups) {
+    const count: number = +Packcomma.groups.count;
+    return M.packComma(stack, count);
+  }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit && Packit.groups) {
     const count: number = +Packit.groups.count;
