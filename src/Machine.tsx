@@ -110,6 +110,11 @@ export const packComma = packWithElem(createElement('mo', ','));
 
 export const packInvisibleTimes = packWithElem(createElement('mo', '\u{2062}'));
 
+export const applyFunction = (env: Env): Env => {
+  const af = packWithElem(createElement('mo', '\u{2061}'));
+  return af(env, 2);
+};
+
 export const addPrime = ({ stack, ...env }: Env): Env => {
   return assemble(pushMo({ stack, ...env }, "'"), 'msup', 2);
 };

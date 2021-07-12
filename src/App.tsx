@@ -223,6 +223,9 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (cmd in opEntityRefs) {
     return M.pushMo(stack, opEntityRefs[cmd]);
   }
+  if (cmd === '\\applyfunction') {
+    return M.applyFunction(stack);
+  }
   if (cmd === '\\bm') {
     return M.addAttribute(stack, 'mathvariant', 'bold-italic');
   }
