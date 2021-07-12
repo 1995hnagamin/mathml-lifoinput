@@ -1,9 +1,8 @@
 import React from 'react';
-import XMLViewer from 'react-xml-viewer';
-import ReactDOMServer from 'react-dom/server';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Input from './components/Input';
 import MathStack from './components/MathStack';
+import CodeView from './components/CodeView';
 import './App.css';
 import * as M from './Machine';
 
@@ -19,21 +18,37 @@ const elemArityMap: Record<string, number> = {
 
 const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
 
-const entityRefs = ['&infin;', '&int;', '&pi;', '&PlusMinus;'];
+const entityRefs: Record<string, string> = {
+  '&infin;': '\u{221e}',
+  '&int;': '\u{222b}',
+  '&pi;': '\u{03c0}',
+};
+
+const opEntityRefs: Record<string, string> = {
+  '&PlusMinus;': '\u{00b1}',
+};
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
-  if (cmd.match(/^-?([0-9]*.)?[0-9]+$/)) {
+  if (cmd.match(/^([0-9,]*.)?[0-9]+(e[0-9]+)?$/)) {
     return M.pushMn(stack, cmd);
   }
   if (cmd.match(/^[a-zA-Z]$/)) {
     return M.pushMi(stack, cmd);
   }
-  if (entityRefs.includes(cmd)) {
-    return M.pushMi(stack, cmd);
+  if (cmd in entityRefs) {
+    return M.pushMi(stack, entityRefs[cmd]);
   }
   const MiCom = cmd.match(/^mi "(?<variable>[^"]+)"$/);
   if (MiCom && MiCom.groups) {
     return M.pushMi(stack, MiCom.groups.variable);
+  }
+  const MnCom = cmd.match(/^mn "(?<numeral>[^"]+)"$/);
+  if (MnCom && MnCom.groups) {
+    return M.pushMn(stack, MnCom.groups.numeral);
+  }
+  const MoCom = cmd.match(/^mo "(?<operator>[^"]+)"$/);
+  if (MoCom && MoCom.groups) {
+    return M.pushMo(stack, MoCom.groups.operator);
   }
   const AttrCom = cmd.match(/^@(?<name>[a-z]+)="(?<value>[^"]*)"$/);
   if (AttrCom && AttrCom.groups) {
@@ -49,6 +64,9 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   if (operators.includes(cmd)) {
     return M.pushMo(stack, cmd);
+  }
+  if (cmd in opEntityRefs) {
+    return M.pushMo(stack, opEntityRefs[cmd]);
   }
   if (cmd === '\\pop') {
     return M.pop(stack);
@@ -155,14 +173,7 @@ const App: React.FC = () => {
           </div>
         </div>
         <div id="mathml-textarea">
-          <XMLViewer
-            xml={
-              selected !== null
-                ? ReactDOMServer.renderToStaticMarkup(env.stack[selected].elem)
-                : ''
-            }
-            invalidXml=""
-          />
+          <CodeView xml={selected !== null ? env.stack[selected].elem : null} />
         </div>
       </div>
     </div>
