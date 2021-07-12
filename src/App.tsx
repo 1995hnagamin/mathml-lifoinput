@@ -19,8 +19,10 @@ const elemArityMap: Record<string, number> = {
 const operators = ['+', '-', ',', '[', ']', '(', ')', '{', '}', '=', '>', '<'];
 
 const entityRefs: Record<string, string> = {
-  '&infin;': '\u{221e}',
-  '&int;': '\u{222b}',
+  // Latin Extended-B
+  '&fnof;': '\u{0192}',
+
+  // Greek
   '&Alpha;': '\u{0391}',
   '&Beta;': '\u{0392}',
   '&Gamma;': '\u{0393}',
@@ -45,6 +47,7 @@ const entityRefs: Record<string, string> = {
   '&Chi;': '\u{03a7}',
   '&Psi;': '\u{03a8}',
   '&Omega;': '\u{03a9}',
+
   '&alpha;': '\u{03b1}',
   '&beta;': '\u{03b2}',
   '&gamma;': '\u{03b3}',
@@ -73,6 +76,91 @@ const entityRefs: Record<string, string> = {
   '&thetasym;': '\u{03d1}',
   '&upsih;': '\u{03d2}',
   '&piv;': '\u{03d6}',
+
+  // General Punctuation
+  '&bull;': '\u{2022}',
+  '&hellip;': '\u{2026}',
+  '&prime;': '\u{2032}',
+  '&Prime;': '\u{2033}',
+  '&oline;': '\u{203e}',
+  '&frasl;': '\u{2044}',
+
+  // Letterlike Symbols
+  '&weierp;': '\u{2118}',
+  '&image;': '\u{2111}',
+  '&real;': '\u{211c}',
+  '&trade;': '\u{2122}',
+  '&alefsym;': '\u{2135}',
+
+  // Arrows
+  '&larr;': '\u{2190}',
+  '&uarr;': '\u{2191}',
+  '&rarr;': '\u{2192}',
+  '&darr;': '\u{2193}',
+  '&harr;': '\u{2194}',
+  '&crarr;': '\u{21b5}',
+  '&lArr;': '\u{21d0}',
+  '&uArr;': '\u{21d1}',
+  '&rArr;': '\u{21d2}',
+  '&dArr;': '\u{21d3}',
+  '&hArr;': '\u{21d4}',
+
+  // Mathematical Operators
+  '&forall;': '\u{2200}',
+  '&part;': '\u{2202}',
+  '&exist;': '\u{2203}',
+  '&empty;': '\u{2205}',
+  '&nabla;': '\u{2207}',
+  '&isin;': '\u{2208}',
+  '&notin;': '\u{2209}',
+  '&ni;': '\u{220b}',
+  '&prod;': '\u{220f}',
+  '&sum;': '\u{2211}',
+  '&minus;': '\u{2212}',
+  '&lowast;': '\u{2217}',
+  '&radic;': '\u{221a}',
+  '&prop;': '\u{221d}',
+  '&infin;': '\u{221e}',
+  '&ang;': '\u{2220}',
+  '&and;': '\u{2227}',
+  '&or;': '\u{2228}',
+  '&cap;': '\u{2229}',
+  '&cup;': '\u{222a}',
+  '&int;': '\u{222b}',
+  '&there4;': '\u{2234}',
+  '&sim;': '\u{223c}',
+  '&cong;': '\u{2245}',
+  '&asymp;': '\u{2248}',
+  '&ne;': '\u{2260}',
+  '&equiv;': '\u{2261}',
+  '&le;': '\u{2264}',
+  '&ge;': '\u{2265}',
+  '&sub;': '\u{2282}',
+  '&sup;': '\u{2283}',
+  '&nsub;': '\u{2284}',
+  '&sube;': '\u{2286}',
+  '&supe;': '\u{2287}',
+  '&oplus;': '\u{2295}',
+  '&otimes;': '\u{2297}',
+  '&perp;': '\u{22a5}',
+  '&sdot;': '\u{22c5}',
+
+  // Miscellaneous Technical
+  '&lceil;': '\u{2308}',
+  '&rceil;': '\u{2309}',
+  '&lfloor;': '\u{230a}',
+  '&rfloor;': '\u{230b}',
+  '&lang;': '\u{2329}',
+  '&rang;': '\u{232a}',
+
+  // Geometric Shapes
+  '&loz;': '\u{25ca}',
+
+  // Miscellaneous Symbols
+  '&spades;': '\u{2660}',
+  '&clubs;': '\u{2663}',
+  '&hearts;': '\u{2665}',
+  '&diams;': '\u{2666}',
 };
 
 const opEntityRefs: Record<string, string> = {
