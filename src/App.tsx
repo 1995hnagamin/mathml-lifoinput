@@ -77,6 +77,13 @@ const entityRefs: Record<string, string> = {
   '&upsih;': '\u{03d2}',
   '&piv;': '\u{03d6}',
 
+  // Letterlike Symbols
+  '&alefsym;': '\u{2135}',
+};
+
+const opEntityRefs: Record<string, string> = {
+  '&PlusMinus;': '\u{00b1}',
+
   // General Punctuation
   '&bull;': '\u{2022}',
   '&hellip;': '\u{2026}',
@@ -90,7 +97,6 @@ const entityRefs: Record<string, string> = {
   '&image;': '\u{2111}',
   '&real;': '\u{211c}',
   '&trade;': '\u{2122}',
-  '&alefsym;': '\u{2135}',
 
   // Arrows
   '&larr;': '\u{2190}',
@@ -161,10 +167,6 @@ const entityRefs: Record<string, string> = {
   '&clubs;': '\u{2663}',
   '&hearts;': '\u{2665}',
   '&diams;': '\u{2666}',
-};
-
-const opEntityRefs: Record<string, string> = {
-  '&PlusMinus;': '\u{00b1}',
 };
 
 const interpret = (stack: M.Env, cmd: string): M.Env => {
