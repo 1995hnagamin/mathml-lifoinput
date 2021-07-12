@@ -34,6 +34,11 @@ const operators = [
 ];
 
 const entityRefs: Record<string, string> = {
+  '&ExponentialE;': '\u{2147}',
+  '&ee;': '\u{2147}',
+  '&ImaginaryI;': '\u{2148}',
+  '&ii;': '\u{2148}',
+
   // Latin Extended-B
   '&fnof;': '\u{0192}',
 
@@ -99,6 +104,10 @@ const entityRefs: Record<string, string> = {
 const opEntityRefs: Record<string, string> = {
   '&PlusMinus;': '\u{00b1}',
   '&times;': '\u{00d7}',
+  '&CapitalDifferentialD;': '\u{2145}',
+  '&DD;': '\u{2145}',
+  '&DifferentialD;': '\u{2146}',
+  '&dd;': '\u{2146}',
   '&parallel;': '\u{2225}',
 
   // General Punctuation
