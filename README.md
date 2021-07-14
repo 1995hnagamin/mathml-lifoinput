@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# mathml-lifoinput
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![demo](https://gyazo.com/96e51e2b659a66ff88b54d19ec050f5b/raw)
 
 ## Example
 
@@ -28,6 +28,8 @@ a
 mfrac
 mrow 3
 ```
+
+For more information, see [https://www.downcastingsoft.net/7e5/diary/article/2021/07/14/mathml-lifoinput/].
 
 ## Available Scripts
 
