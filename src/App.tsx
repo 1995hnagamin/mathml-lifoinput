@@ -100,6 +100,7 @@ const opEntityRefs: Record<string, string> = {
   '&PlusMinus;': '\u{00b1}',
   '&times;': '\u{00d7}',
   '&parallel;': '\u{2225}',
+  '&InvisibleTimes;': '\u{2062}',
 
   // General Punctuation
   '&bull;': '\u{2022}',
