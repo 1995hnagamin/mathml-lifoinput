@@ -109,6 +109,7 @@ const opEntityRefs: Record<string, string> = {
   '&DifferentialD;': '\u{2146}',
   '&dd;': '\u{2146}',
   '&parallel;': '\u{2225}',
+  '&InvisibleTimes;': '\u{2062}',
 
   // General Punctuation
   '&bull;': '\u{2022}',
