@@ -113,6 +113,12 @@ export const packComma = packWithElem(createElement('mo', ','));
 
 export const packInvisibleTimes = packWithElem(createElement('mo', '\u{2062}'));
 
+export const packMtr = ({ stack, ...env }: Env, nchd: number): Env => {
+  const [tail, front] = cut(stack, nchd);
+  const children = front.map((chd) => createElement('mtd', chd.elem));
+  return push({ stack: tail, ...env }, createElement('mtr', children));
+};
+
 export const applyFunction = (env: Env): Env => {
   const af = packWithElem(createElement('mo', '\u{2061}'));
   return af(env, 2);

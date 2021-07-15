@@ -272,6 +272,11 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     const count: number = +Packit.groups.count;
     return M.packInvisibleTimes(stack, count);
   }
+  const Packmtr = cmd.match(/^\\packmtr (?<count>[0-9]+)$/);
+  if (Packmtr && Packmtr.groups) {
+    const count: number = +Packmtr.groups.count;
+    return M.packMtr(stack, count);
+  }
   throw new Error(`unknown command "${cmd}"`);
 };
 
