@@ -45,7 +45,10 @@ const cut = (stack: Stack, nheads: number): [Stack, Stack] => {
   return [tail, front];
 };
 
-const createElement = (tag: string, text: React.ReactNode): JSX.Element => {
+const createElement = (
+  tag: string,
+  text: string | JSX.Element | JSX.Element[]
+): JSX.Element => {
   return React.createElement(tag, {}, text);
 };
 
