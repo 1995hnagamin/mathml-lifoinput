@@ -267,6 +267,11 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     const count: number = +Packcomma.groups.count;
     return M.packComma(stack, count);
   }
+  const Packic = cmd.match(/^\\packic (?<count>[0-9]+)$/);
+  if (Packic && Packic.groups) {
+    const count: number = +Packic.groups.count;
+    return M.packInvisibleComma(stack, count);
+  }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit && Packit.groups) {
     const count: number = +Packit.groups.count;

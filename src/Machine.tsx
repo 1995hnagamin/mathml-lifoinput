@@ -111,6 +111,8 @@ const packWithElem = (op: JSX.Element) => (
 
 export const packComma = packWithElem(createElement('mo', ','));
 
+export const packInvisibleComma = packWithElem(createElement('mo', '\u{2063}'));
+
 export const packInvisibleTimes = packWithElem(createElement('mo', '\u{2062}'));
 
 export const packMtr = ({ stack, ...env }: Env, nchd: number): Env => {
