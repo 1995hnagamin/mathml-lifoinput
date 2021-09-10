@@ -14,7 +14,6 @@ const elemArityMap: Record<string, number> = {
   msubsup: 3,
   msup: 2,
   mstyle: 1,
-  mtd: 1,
 } as const;
 
 const operators = [
@@ -232,6 +231,11 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   if (MtableCom && MtableCom.groups) {
     const arity: number = +MtableCom.groups.arity;
     return M.assemble(stack, 'mtable', arity);
+  }
+  const MtdCom = cmd.match(/^mtd( (?<arity>[0-9]+))?$/);
+  if (MtdCom && MtdCom.groups) {
+    const arity: number = +MtdCom.groups.arity || 1;
+    return M.assemble(stack, 'mtd', arity);
   }
   const MtrCom = cmd.match(/^mtr (?<arity>[0-9]+)$/);
   if (MtrCom && MtrCom.groups) {
