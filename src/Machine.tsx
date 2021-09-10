@@ -47,9 +47,9 @@ const cut = (stack: Stack, nheads: number): [Stack, Stack] => {
 
 const createElement = (
   tag: string,
-  text: string | JSX.Element | JSX.Element[]
+  content: string | JSX.Element | JSX.Element[]
 ): JSX.Element => {
-  return React.createElement(tag, {}, text);
+  return React.createElement(tag, {}, content);
 };
 
 export const pop = ({ stack, ...env }: Env): Env => {
