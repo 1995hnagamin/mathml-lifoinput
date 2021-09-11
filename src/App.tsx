@@ -234,12 +234,12 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
   }
   const MtdCom = cmd.match(/^mtd( (?<arity>[0-9]+))?$/);
   if (MtdCom && MtdCom.groups) {
-    const arity: number = +MtdCom.groups.arity || 1;
+    const arity: number = +(MtdCom.groups.arity ?? 1);
     return M.assemble(stack, 'mtd', arity);
   }
   const MtrCom = cmd.match(/^mtr (?<arity>[0-9]+)$/);
   if (MtrCom && MtrCom.groups) {
-    const arity: number = +MtrCom.groups.arity;
+    const arity: number = +(MtrCom.groups.arity ?? 1);
     return M.assemble(stack, 'mtr', arity);
   }
   if (cmd in elemArityMap) {
