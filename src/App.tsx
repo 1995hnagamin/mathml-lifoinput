@@ -227,6 +227,21 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     const arity: number = +MrowCom.groups.arity;
     return M.assemble(stack, 'mrow', arity);
   }
+  const MtableCom = cmd.match(/^mtable (?<arity>[0-9]+)$/);
+  if (MtableCom && MtableCom.groups) {
+    const arity: number = +MtableCom.groups.arity;
+    return M.assemble(stack, 'mtable', arity);
+  }
+  const MtdCom = cmd.match(/^mtd( (?<arity>[0-9]+))?$/);
+  if (MtdCom && MtdCom.groups) {
+    const arity: number = +(MtdCom.groups.arity ?? 1);
+    return M.assemble(stack, 'mtd', arity);
+  }
+  const MtrCom = cmd.match(/^mtr (?<arity>[0-9]+)$/);
+  if (MtrCom && MtrCom.groups) {
+    const arity: number = +(MtrCom.groups.arity ?? 1);
+    return M.assemble(stack, 'mtr', arity);
+  }
   if (cmd in elemArityMap) {
     return M.assemble(stack, cmd, elemArityMap[cmd]);
   }
@@ -256,10 +271,20 @@ const interpret = (stack: M.Env, cmd: string): M.Env => {
     const count: number = +Packcomma.groups.count;
     return M.packComma(stack, count);
   }
+  const Packic = cmd.match(/^\\packic (?<count>[0-9]+)$/);
+  if (Packic && Packic.groups) {
+    const count: number = +Packic.groups.count;
+    return M.packInvisibleComma(stack, count);
+  }
   const Packit = cmd.match(/^\\packit (?<count>[0-9]+)$/);
   if (Packit && Packit.groups) {
     const count: number = +Packit.groups.count;
     return M.packInvisibleTimes(stack, count);
+  }
+  const Packmtr = cmd.match(/^\\packmtr (?<count>[0-9]+)$/);
+  if (Packmtr && Packmtr.groups) {
+    const count: number = +Packmtr.groups.count;
+    return M.packMtr(stack, count);
   }
   throw new Error(`unknown command "${cmd}"`);
 };

@@ -45,8 +45,11 @@ const cut = (stack: Stack, nheads: number): [Stack, Stack] => {
   return [tail, front];
 };
 
-const createElement = (tag: string, text: React.ReactNode): JSX.Element => {
-  return React.createElement(tag, {}, text);
+const createElement = (
+  tag: string,
+  content: string | JSX.Element | JSX.Element[]
+): JSX.Element => {
+  return React.createElement(tag, {}, content);
 };
 
 export const pop = ({ stack, ...env }: Env): Env => {
@@ -108,7 +111,15 @@ const packWithElem = (op: JSX.Element) => (
 
 export const packComma = packWithElem(createElement('mo', ','));
 
+export const packInvisibleComma = packWithElem(createElement('mo', '\u{2063}'));
+
 export const packInvisibleTimes = packWithElem(createElement('mo', '\u{2062}'));
+
+export const packMtr = ({ stack, ...env }: Env, nchd: number): Env => {
+  const [tail, front] = cut(stack, nchd);
+  const children = front.map((chd) => createElement('mtd', chd.elem));
+  return push({ stack: tail, ...env }, createElement('mtr', children));
+};
 
 export const applyFunction = (env: Env): Env => {
   const af = packWithElem(createElement('mo', '\u{2061}'));
