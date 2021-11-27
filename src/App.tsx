@@ -313,8 +313,10 @@ const App: React.FC = () => {
       const newenv = interpret(env, cmd);
       addEnvToHistory(newenv);
     } catch (e) {
-      // eslint-disable-next-line no-alert
-      alert(e.message);
+      if (e instanceof Error) {
+        // eslint-disable-next-line no-alert
+        alert(e.message);
+      }
     }
   };
 

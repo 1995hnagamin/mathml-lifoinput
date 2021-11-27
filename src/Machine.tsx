@@ -87,8 +87,10 @@ export const addAttribute = (
   return push({ stack: tail, ...env }, elem);
 };
 
-const pushTokenNode = (tag: string) => (env: Env, text: string): Env =>
-  push(env, createElement(tag, text));
+const pushTokenNode =
+  (tag: string) =>
+  (env: Env, text: string): Env =>
+    push(env, createElement(tag, text));
 
 export const pushMn: (env: Env, numeral: string) => Env = pushTokenNode('mn');
 
@@ -96,18 +98,17 @@ export const pushMi: (env: Env, ident: string) => Env = pushTokenNode('mi');
 
 export const pushMo: (env: Env, operator: string) => Env = pushTokenNode('mo');
 
-const packWithElem = (op: JSX.Element) => (
-  { stack, ...env }: Env,
-  nchd: number
-): Env => {
-  const [tail, front] = cut(stack, nchd);
-  const children = front.reduce<JSX.Element[]>(
-    (chd, item, i) => (i === 0 ? [item.elem] : chd.concat([op, item.elem])),
-    []
-  );
+const packWithElem =
+  (op: JSX.Element) =>
+  ({ stack, ...env }: Env, nchd: number): Env => {
+    const [tail, front] = cut(stack, nchd);
+    const children = front.reduce<JSX.Element[]>(
+      (chd, item, i) => (i === 0 ? [item.elem] : chd.concat([op, item.elem])),
+      []
+    );
 
-  return push({ stack: tail, ...env }, createElement('mrow', children));
-};
+    return push({ stack: tail, ...env }, createElement('mrow', children));
+  };
 
 export const packComma = packWithElem(createElement('mo', ','));
 
