@@ -12,7 +12,11 @@
 	let activeNode = null as null | Elem;
 	export const activeIndex = writable<number | null>(null);
 
-	$: activeNode = $activeIndex !== null ? env.stack[$activeIndex].elem : null;
+	$: if ($activeIndex != null && $activeIndex < env.stack.length) {
+		activeNode = env.stack[$activeIndex].elem;
+	} else {
+		activeNode = null;
+	}
 
 	const handleInput = (cmd: string) => {
 		env = interpret(env, cmd);
