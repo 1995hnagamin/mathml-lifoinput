@@ -28,6 +28,6 @@
 		justify-content: center;
 	}
 	input {
-		width: 90%;
+		width: 85%;
 	}
 </style>
