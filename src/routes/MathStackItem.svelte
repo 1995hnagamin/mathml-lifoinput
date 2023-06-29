@@ -1,0 +1,32 @@
+<script lang="ts">
+	import MathML from './MathML.svelte';
+	import type { Elem } from '$lib/node';
+	export let elem: Elem;
+	let hovering = false;
+
+	function enter() {
+		hovering = true;
+	}
+
+	function leave() {
+		hovering = false;
+	}
+</script>
+
+<li on:mouseover={enter} on:mouseleave={leave} class:active={hovering}>
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<MathML {elem} />
+	</math>
+</li>
+
+<style>
+	li {
+		list-style-type: none;
+		border-left: medium solid #000;
+		margin: 8px 8px 0 0;
+		padding: 0 0 0 8px;
+	}
+	.active {
+		background-color: #eee;
+	}
+</style>
