@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let items: string[];
+	import MathML from './MathML.svelte';
+	import type { Stack } from '$lib/env';
+	export let items: Stack;
 </script>
 
 <ul>
-	{#each items as item}
-		<li>{item}</li>
+	{#each items as item (item.id)}
+		<li>
+			<math><MathML elem={item.elem} /></math>
+		</li>
 	{/each}
 </ul>
