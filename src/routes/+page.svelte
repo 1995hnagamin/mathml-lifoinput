@@ -18,13 +18,38 @@
 		activeNode = null;
 	}
 
+	let history = [env] as Env.Env[];
+	let historyIndex = 0;
+	$: historyIndex = history.length - 1;
+
 	const handleInput = (cmd: string) => {
 		env = interpret(env, cmd);
+		history = history.slice(0, historyIndex + 1).concat(env);
+	};
+
+	const handleUndo = () => {
+		if (historyIndex < 1) {
+			return;
+		}
+		historyIndex = historyIndex - 1;
+		$activeIndex = null;
+		env = history[historyIndex];
+	};
+
+	const handleRedo = () => {
+		if (historyIndex + 1 >= history.length) {
+			return;
+		}
+		historyIndex = historyIndex + 1;
+		$activeIndex = null;
+		env = history[historyIndex];
 	};
 </script>
 
 <div class="main-view">
 	<div class="input-area">
+		<button on:click={handleUndo} disabled={historyIndex < 1}>undo</button>
+		<button on:click={handleRedo} disabled={historyIndex + 1 >= history.length}>redo</button>
 		<MathStack items={env.stack} {activeIndex} />
 		<Input addItem={handleInput} />
 	</div>
