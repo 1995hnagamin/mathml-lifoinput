@@ -101,7 +101,7 @@ export const packInvisibleTimes = packWithElem(createElem('mo', '\u{2062}'));
 
 export const packMtr = ({ stack, ...env }: Env, nchd: number): Env => {
 	const [tail, front] = cut(stack, nchd);
-	const children = front.map((chd) => createElem('mtd', chd.elem));
+	const children = front.map((chd) => createElem('mtd', [chd.elem]));
 	return push({ stack: tail, ...env }, createElem('mtr', children));
 };
 

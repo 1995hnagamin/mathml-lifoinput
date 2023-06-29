@@ -1,10 +1,10 @@
 export type Elem = {
 	tag: string;
-	content: string | Elem | Elem[];
+	content: string | Elem[];
 	attrs: Record<string, string>;
 };
 
-export const createElem = (tag: string, content: string | Elem | Elem[]): Elem => {
+export const createElem = (tag: string, content: string | Elem[]): Elem => {
 	return {
 		tag: tag,
 		content: content,
