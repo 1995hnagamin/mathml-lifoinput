@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
+	import type { Elem } from '$lib/node';
 	import Input from './Input.svelte';
 	import MathStack from './MathStack.svelte';
 	import * as Env from '$lib/env';
@@ -7,6 +9,11 @@
 
 	let env = Env.empty();
 
+	let activeNode = null as null | Elem;
+	export const activeIndex = writable<number | null>(null);
+
+	$: activeNode = $activeIndex !== null ? env.stack[$activeIndex].elem : null;
+
 	const handleInput = (cmd: string) => {
 		env = interpret(env, cmd);
 	};
@@ -14,11 +21,11 @@
 
 <div class="main-view">
 	<div class="input-area">
-		<MathStack items={env.stack} />
+		<MathStack items={env.stack} {activeIndex} />
 		<Input addItem={handleInput} />
 	</div>
 	<div class="mathml-textarea">
-		<XmlView />
+		<XmlView elem={activeNode} />
 	</div>
 </div>
 

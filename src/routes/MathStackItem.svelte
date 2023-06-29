@@ -2,10 +2,12 @@
 	import MathML from './MathML.svelte';
 	import type { Elem } from '$lib/node';
 	export let elem: Elem;
+	export let updateActive: () => void;
 	let hovering = false;
 
 	function enter() {
 		hovering = true;
+		updateActive();
 	}
 
 	function leave() {
