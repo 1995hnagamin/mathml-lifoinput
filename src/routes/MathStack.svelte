@@ -7,7 +7,9 @@
 <ul>
 	{#each items as item (item.id)}
 		<li>
-			<math><MathML elem={item.elem} /></math>
+			<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+				<MathML elem={item.elem} />
+			</math>
 		</li>
 	{/each}
 </ul>
