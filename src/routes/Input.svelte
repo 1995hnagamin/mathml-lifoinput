@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
+	export let addItem: (item: string) => void;
+
 	let input = '';
 
 	function handleSubmit() {
-		alert(input);
+		addItem(input);
 		input = '';
 	}
 </script>
