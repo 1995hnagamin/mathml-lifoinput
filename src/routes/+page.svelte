@@ -44,13 +44,19 @@
 		$activeIndex = null;
 		env = history[historyIndex];
 	};
+
+	const updateEnv = (stack: Env.Stack) => {
+		let newEnv = { stack, fresh: env.fresh };
+		history = history.slice(0, historyIndex + 1).concat(newEnv);
+		env = newEnv;
+	};
 </script>
 
 <div class="main-view">
 	<div class="input-area">
 		<button on:click={handleUndo} disabled={historyIndex < 1}>undo</button>
 		<button on:click={handleRedo} disabled={historyIndex + 1 >= history.length}>redo</button>
-		<MathStack items={env.stack} {activeIndex} />
+		<MathStack items={env.stack} {activeIndex} {updateEnv} />
 		<Input addItem={handleInput} />
 	</div>
 	<div class="mathml-textarea">
