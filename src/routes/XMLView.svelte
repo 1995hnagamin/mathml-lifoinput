@@ -31,6 +31,9 @@
 		white-space: pre-wrap;
 		font-family: monospace;
 	}
+	pre {
+		padding: 10px;
+	}
 	button.copy {
 		position: fixed;
 		top: 10px;
