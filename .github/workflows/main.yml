@@ -25,5 +25,5 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: yarn install
-      - run: yarn eslint . --ext .tsx --ext .ts
+      - run: npm install
+      - run: npx eslint .
