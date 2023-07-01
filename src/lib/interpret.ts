@@ -2,11 +2,14 @@ import * as M from './env';
 
 const elemArityMap: Record<string, number> = {
 	mfrac: 2,
+	mover: 2,
 	mroot: 2,
 	msqrt: 1,
 	msub: 2,
 	msubsup: 3,
 	msup: 2,
+	munder: 2,
+	munderover: 3,
 	mstyle: 1
 } as const;
 
