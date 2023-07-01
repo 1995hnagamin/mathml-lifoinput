@@ -43,6 +43,16 @@
 			{/each}
 		{/if}
 	</mo>
+{:else if elem.tag === 'mover'}
+	<mover xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
+		{#if typeof elem.content === 'string'}
+			{elem.content}
+		{:else}
+			{#each elem.content as child}
+				<svelte:self elem={child} />
+			{/each}
+		{/if}
+	</mover>
 {:else if elem.tag === 'mrow'}
 	<mrow xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
 		{#if typeof elem.content === 'string'}
@@ -73,6 +83,16 @@
 			{/each}
 		{/if}
 	</msqrt>
+{:else if elem.tag === 'msub'}
+	<msub xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
+		{#if typeof elem.content === 'string'}
+			{elem.content}
+		{:else}
+			{#each elem.content as child}
+				<svelte:self elem={child} />
+			{/each}
+		{/if}
+	</msub>
 {:else if elem.tag === 'msubsup'}
 	<msubsup xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
 		{#if typeof elem.content === 'string'}
@@ -83,16 +103,6 @@
 			{/each}
 		{/if}
 	</msubsup>
-{:else if elem.tag === 'mstyle'}
-	<mstyle xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
-		{#if typeof elem.content === 'string'}
-			{elem.content}
-		{:else}
-			{#each elem.content as child}
-				<svelte:self elem={child} />
-			{/each}
-		{/if}
-	</mstyle>
 {:else if elem.tag === 'msup'}
 	<msup xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
 		{#if typeof elem.content === 'string'}
@@ -103,6 +113,16 @@
 			{/each}
 		{/if}
 	</msup>
+{:else if elem.tag === 'mstyle'}
+	<mstyle xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
+		{#if typeof elem.content === 'string'}
+			{elem.content}
+		{:else}
+			{#each elem.content as child}
+				<svelte:self elem={child} />
+			{/each}
+		{/if}
+	</mstyle>
 {:else if elem.tag === 'mtable'}
 	<mtable xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
 		{#if typeof elem.content === 'string'}
@@ -133,6 +153,26 @@
 			{/each}
 		{/if}
 	</mtr>
+{:else if elem.tag === 'munder'}
+	<munder xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
+		{#if typeof elem.content === 'string'}
+			{elem.content}
+		{:else}
+			{#each elem.content as child}
+				<svelte:self elem={child} />
+			{/each}
+		{/if}
+	</munder>
+{:else if elem.tag === 'munderover'}
+	<munderover xmlns="http://www.w3.org/1998/Math/MathML" {...elem.attrs}>
+		{#if typeof elem.content === 'string'}
+			{elem.content}
+		{:else}
+			{#each elem.content as child}
+				<svelte:self elem={child} />
+			{/each}
+		{/if}
+	</munderover>
 {:else}
 	<div />
 {/if}
