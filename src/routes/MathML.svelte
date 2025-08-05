@@ -174,5 +174,5 @@
 		{/if}
 	</munderover>
 {:else}
-	<div />
+	<div></div>
 {/if}
